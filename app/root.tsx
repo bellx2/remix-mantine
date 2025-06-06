@@ -6,12 +6,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import type { ReactNode } from 'react';
 
 import "./styles/mantine.css";
 
 export const links = () => [];
 
-export function Layout({ children }) {
+export function Layout({ children }: { children: ReactNode }): JSX.Element {
   return (
     <html lang="en">
       <head>
@@ -30,7 +31,7 @@ export function Layout({ children }) {
   );
 }
 
-export default function App() {
+export default function App(): JSX.Element {
   return (
     <MantineProvider>
       <Outlet />

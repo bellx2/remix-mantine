@@ -23,9 +23,24 @@ import {
   IconCoins,
 } from '@tabler/icons-react';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import type { MetaFunction } from '@remix-run/node';
 
-// サンプルデータ
-const statsData = [
+// サンプルデータの型定義
+interface StatData {
+  title: string;
+  value: string;
+  diff: number;
+  icon: any;
+  color: string;
+}
+
+interface ChartData {
+  name: string;
+  value: number;
+  pv: number;
+}
+
+const statsData: StatData[] = [
   {
     title: '総ユーザー数',
     value: '34,456',
@@ -56,7 +71,7 @@ const statsData = [
   },
 ];
 
-const chartData = [
+const chartData: ChartData[] = [
   { name: '1月', value: 400, pv: 2400 },
   { name: '2月', value: 300, pv: 1398 },
   { name: '3月', value: 600, pv: 9800 },
@@ -65,14 +80,14 @@ const chartData = [
   { name: '6月', value: 900, pv: 3800 },
 ];
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
   return [
     { title: "ダッシュボード | 管理画面" },
     { name: "description", content: "管理ダッシュボードのメインページ" },
   ];
 };
 
-function StatsCard({ stat }) {
+function StatsCard({ stat }: { stat: StatData }): JSX.Element {
   const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
   return (
@@ -113,7 +128,7 @@ function StatsCard({ stat }) {
   );
 }
 
-export default function DashboardIndex() {
+export default function DashboardIndex(): JSX.Element {
   return (
     <Box>
       <Title order={2} mb="lg">

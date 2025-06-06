@@ -16,8 +16,9 @@ import {
 } from '@mantine/core';
 import { Link } from '@remix-run/react';
 import { IconRocket, IconCode, IconPalette, IconBrandMantine, IconMoon, IconSun } from '@tabler/icons-react';
+import type { MetaFunction } from '@remix-run/node';
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
   return [
     { title: "Remix + Mantine テンプレート" },
     { name: "description", content: "Remix と Mantine を使用したテンプレートページ" },
@@ -25,7 +26,7 @@ export const meta = () => {
 };
 
 // カラースキーム切り替えコンポーネント
-function ColorSchemeToggleButton() {
+function ColorSchemeToggleButton(): JSX.Element {
   const { setColorScheme, colorScheme } = useMantineColorScheme();
 
   return (
@@ -41,7 +42,7 @@ function ColorSchemeToggleButton() {
   );
 }
 
-export default function Index() {
+export default function Index(): JSX.Element {
   return (
     <Container size="lg" py="xl">
       <Stack spacing="xl">

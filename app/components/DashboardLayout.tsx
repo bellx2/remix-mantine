@@ -36,9 +36,18 @@ import {
   IconChevronsRight,
 } from '@tabler/icons-react';
 import { useMantineColorScheme } from '@mantine/core';
+import type { Icon } from '@tabler/icons-react';
+
+// ナビゲーションアイテムの型定義
+interface NavItem {
+  label: string;
+  icon: Icon;
+  to: string;
+  badge?: string;
+}
 
 // ナビゲーションアイテムの定義
-const navItems = [
+const navItems: NavItem[] = [
   { label: 'ダッシュボード', icon: IconHome, to: '/dashboard' },
   { label: 'アナリティクス', icon: IconChartBar, to: '/dashboard/analytics', badge: '3' },
   { label: 'ユーザー管理', icon: IconUsers, to: '/dashboard/users' },
@@ -49,11 +58,11 @@ const navItems = [
   { label: 'メッセージ', icon: IconMessage, to: '/dashboard/messages', badge: '12' },
 ];
 
-const bottomNavItems = [
+const bottomNavItems: NavItem[] = [
   { label: '設定', icon: IconSettings, to: '/dashboard/settings' },
 ];
 
-export function DashboardLayout() {
+export function DashboardLayout(): JSX.Element {
   const theme = useMantineTheme();
   const location = useLocation();
   const [opened, setOpened] = useState(false);
@@ -61,7 +70,7 @@ export function DashboardLayout() {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   // ナビゲーションアイテムコンポーネント
-  const NavItem = ({ item }) => {
+  const NavItemComponent = ({ item }: { item: NavItem }): JSX.Element => {
     const isActive = location.pathname === item.to;
     
     if (collapsed) {
@@ -227,7 +236,7 @@ export function DashboardLayout() {
             )}
             {navItems.map((item) => (
               <Box key={item.to} mb="xs">
-                <NavItem item={item} />
+                <NavItemComponent item={item} />
               </Box>
             ))}
           </Box>
@@ -238,7 +247,7 @@ export function DashboardLayout() {
         <AppShell.Section>
           {bottomNavItems.map((item) => (
             <Box key={item.to} mb="xs">
-              <NavItem item={item} />
+              <NavItemComponent item={item} />
             </Box>
           ))}
         </AppShell.Section>
