@@ -124,10 +124,23 @@ export default function Index() {
         {/* CTA */}
         <Center mt="xl">
           <Group>
-            <Button size="lg" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }}>
+            <Button 
+              size="lg" 
+              variant="gradient" 
+              gradient={{ from: 'blue', to: 'cyan' }}
+              component="a"
+              href="https://remix.run/docs"
+              target="_blank"
+            >
               始めよう
             </Button>
-            <Button size="lg" variant="default">
+            <Button 
+              size="lg" 
+              variant="default"
+              component="a"
+              href="https://mantine.dev"
+              target="_blank"
+            >
               詳細を見る
             </Button>
           </Group>
