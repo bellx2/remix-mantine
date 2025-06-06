@@ -10,19 +10,20 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import type { EntryContext } from "@remix-run/node";
 
 const ABORT_DELAY = 5_000;
 
 export default function handleRequest(
-  request,
-  responseStatusCode,
-  responseHeaders,
-  remixContext,
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
   // eslint-disable-next-line no-unused-vars
-  loadContext
-) {
+  loadContext: unknown
+): Promise<Response> {
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
         request,
@@ -39,11 +40,11 @@ export default function handleRequest(
 }
 
 function handleBotRequest(
-  request,
-  responseStatusCode,
-  responseHeaders,
-  remixContext
-) {
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext
+): Promise<Response> {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
@@ -89,11 +90,11 @@ function handleBotRequest(
 }
 
 function handleBrowserRequest(
-  request,
-  responseStatusCode,
-  responseHeaders,
-  remixContext
-) {
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext
+): Promise<Response> {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
