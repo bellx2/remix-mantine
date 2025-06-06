@@ -10,9 +10,12 @@ import {
   Stack,
   ThemeIcon,
   Anchor,
+  ActionIcon,
+  Tooltip,
   useMantineColorScheme
 } from '@mantine/core';
-import { IconRocket, IconCode, IconPalette, IconBrandMantine } from '@tabler/icons-react';
+import { Link } from '@remix-run/react';
+import { IconRocket, IconCode, IconPalette, IconBrandMantine, IconMoon, IconSun } from '@tabler/icons-react';
 
 export const meta = () => {
   return [
@@ -26,12 +29,15 @@ function ColorSchemeToggleButton() {
   const { setColorScheme, colorScheme } = useMantineColorScheme();
 
   return (
-    <Button
-      onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
-      variant="default"
-    >
-      {colorScheme === 'light' ? 'ダークモード' : 'ライトモード'}に切り替え
-    </Button>
+    <Tooltip label={colorScheme === 'light' ? 'ダークモード' : 'ライトモード'}>
+      <ActionIcon
+        onClick={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
+        variant="default"
+        size="lg"
+      >
+        {colorScheme === 'light' ? <IconMoon size={18} /> : <IconSun size={18} />}
+      </ActionIcon>
+    </Tooltip>
   );
 }
 
@@ -52,6 +58,15 @@ export default function Index() {
               モダンなReactフレームワークとUIライブラリの組み合わせ
             </Text>
             <ColorSchemeToggleButton />
+            <Button 
+              size="md" 
+              variant="gradient" 
+              gradient={{ from: 'blue', to: 'cyan' }}
+              component={Link}
+              to="/dashboard"
+            >
+              ダッシュボードへ
+            </Button>
           </Stack>
         </Center>
 
@@ -128,11 +143,10 @@ export default function Index() {
               size="lg" 
               variant="gradient" 
               gradient={{ from: 'blue', to: 'cyan' }}
-              component="a"
-              href="https://remix.run/docs"
-              target="_blank"
+              component={Link}
+              to="/dashboard"
             >
-              始めよう
+              ダッシュボードへ
             </Button>
             <Button 
               size="lg" 
