@@ -28,9 +28,30 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import type { MetaFunction } from '@remix-run/node';
+
+// サンプルデータの型定義
+interface LineData {
+  month: string;
+  desktop: number;
+  mobile: number;
+  tablet: number;
+}
+
+interface BarData {
+  name: string;
+  uv: number;
+  pv: number;
+}
+
+interface PieData {
+  name: string;
+  value: number;
+  color: string;
+}
 
 // サンプルデータ
-const lineData = [
+const lineData: LineData[] = [
   { month: '1月', desktop: 4000, mobile: 2400, tablet: 1200 },
   { month: '2月', desktop: 3000, mobile: 1398, tablet: 1000 },
   { month: '3月', desktop: 2000, mobile: 9800, tablet: 1500 },
@@ -39,7 +60,7 @@ const lineData = [
   { month: '6月', desktop: 2390, mobile: 3800, tablet: 1400 },
 ];
 
-const barData = [
+const barData: BarData[] = [
   { name: '月曜日', uv: 4000, pv: 2400 },
   { name: '火曜日', uv: 3000, pv: 1398 },
   { name: '水曜日', uv: 2000, pv: 9800 },
@@ -49,7 +70,7 @@ const barData = [
   { name: '日曜日', uv: 3490, pv: 4300 },
 ];
 
-const pieData = [
+const pieData: PieData[] = [
   { name: 'Chrome', value: 68.14, color: '#4285f4' },
   { name: 'Safari', value: 19.82, color: '#0066ff' },
   { name: 'Firefox', value: 7.34, color: '#ff9500' },
@@ -57,14 +78,14 @@ const pieData = [
   { name: 'その他', value: 1.09, color: '#666666' },
 ];
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
   return [
     { title: "アナリティクス | 管理画面" },
     { name: "description", content: "サイトアナリティクスとトラフィック分析" },
   ];
 };
 
-export default function DashboardAnalytics() {
+export default function DashboardAnalytics(): JSX.Element {
   return (
     <Box>
       <Group justify="space-between" mb="xl">

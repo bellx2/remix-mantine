@@ -26,9 +26,21 @@ import {
   IconDownload,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+import type { MetaFunction } from '@remix-run/node';
+
+// ユーザーデータの型定義
+interface UserData {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  joinDate: string;
+  avatar: string | null;
+}
 
 // サンプルユーザーデータ
-const usersData = [
+const usersData: UserData[] = [
   {
     id: 1,
     name: '田中太郎',
@@ -76,14 +88,14 @@ const usersData = [
   },
 ];
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
   return [
     { title: "ユーザー管理 | 管理画面" },
     { name: "description", content: "ユーザーの管理と権限設定" },
   ];
 };
 
-export default function DashboardUsers() {
+export default function DashboardUsers(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
 

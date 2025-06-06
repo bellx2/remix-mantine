@@ -10,10 +10,12 @@
 - **レスポンシブサイドバー**: デスクトップでは縮小可能、モバイルではハンバーガーメニュー
 - **ダークモード対応**: ワンクリックでライト/ダークテーマ切り替え
 - **日本語UI**: 完全な日本語対応
+- **TypeScript**: 型安全性とより良い開発体験
 
 ## 🛠 技術スタック
 
 - **[Remix](https://remix.run/)** - フルスタックReactフレームワーク
+- **[TypeScript](https://www.typescriptlang.org/)** - 型安全なJavaScript
 - **[Mantine](https://mantine.dev/)** - モダンなReact UIライブラリ
 - **[Recharts](https://recharts.org/)** - React用チャートライブラリ
 - **[Tabler Icons](https://tabler-icons.io/)** - 美しいアイコンセット
@@ -44,16 +46,18 @@ bun run dev
 ```
 app/
 ├── components/
-│   └── DashboardLayout.jsx    # ダッシュボードレイアウト
+│   └── DashboardLayout.tsx    # ダッシュボードレイアウト
 ├── routes/
-│   ├── _index.jsx            # ランディングページ
-│   ├── dashboard.jsx         # ダッシュボードルート
-│   ├── dashboard._index.jsx  # メインダッシュボード
-│   ├── dashboard.analytics.jsx # アナリティクス
-│   └── dashboard.users.jsx   # ユーザー管理
+│   ├── _index.tsx            # ランディングページ
+│   ├── dashboard.tsx         # ダッシュボードルート
+│   ├── dashboard._index.tsx  # メインダッシュボード
+│   ├── dashboard.analytics.tsx # アナリティクス
+│   └── dashboard.users.tsx   # ユーザー管理
 ├── styles/
 │   └── mantine.css          # Mantineスタイル
-└── root.jsx                 # ルートコンポーネント
+├── entry.client.tsx         # クライアントエントリーポイント
+├── entry.server.tsx         # サーバーエントリーポイント
+└── root.tsx                 # ルートコンポーネント
 ```
 
 ## 🎯 利用可能なページ
@@ -67,9 +71,9 @@ app/
 
 ### テーマの変更
 
-`app/root.jsx`のMantineProviderで設定を変更できます：
+`app/root.tsx`のMantineProviderで設定を変更できます：
 
-```jsx
+```tsx
 <MantineProvider theme={{ primaryColor: 'blue' }}>
   <Outlet />
 </MantineProvider>
@@ -77,10 +81,10 @@ app/
 
 ### ナビゲーションの追加
 
-`app/components/DashboardLayout.jsx`の`navItems`配列にメニュー項目を追加：
+`app/components/DashboardLayout.tsx`の`navItems`配列にメニュー項目を追加：
 
-```javascript
-const navItems = [
+```typescript
+const navItems: NavItem[] = [
   { label: '新しいページ', icon: IconNewPage, to: '/dashboard/new-page' },
   // ...
 ];
